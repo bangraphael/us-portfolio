@@ -28,7 +28,8 @@ a { color:#00ff88; }
 <body>
 <header>
 <h1>BANG Raphael Abodu</h1>
-<p class="subtitle"><span id="typing"></span> • Building for the World 🌍</span></p>
+<button id="themeBtn" style="position:fixed; top:20px; right:20px; background:#00ff88; border:none; padding:10px 15px; border-radius:20px; cursor:pointer; font-weight:bold; z-index:999;">🌙</button>
+<p class="subtitle"><span id="typing"></span></p> 
 <p>I build clean, fast websites. Learning daily, shipping daily.</p>
 <a class="btn" href="https://wa.me/237651336468" target="_blank">WhatsApp Me</a>
 <a class="btn" href="https://github.com/bangraphael" target="_blank" style="background:white;">GitHub</a>
@@ -90,6 +91,27 @@ let letter = "";
   }
 })();
 </script>
+<script>
+  const btn = document.getElementById("themeBtn");
+  btn.onclick = () => {
+    document.body.classList.toggle("light");
+    btn.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
+  }
+</script>
+
+<style>
+  body.light {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  body.light header {
+    background: #f0f0f0 !important;
+  }
+  body.light .skills span {
+    background: #e0e0e0 !important;
+    color: #000 !important;
+  }
+</style>
 
 <style>
 #typing {
