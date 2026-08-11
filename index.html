@@ -28,7 +28,7 @@ a { color:#00ff88; }
 <body>
 <header>
 <h1>BANG Raphael Abodu</h1>
-<p class="subtitle">Developer from Bamenda, Cameroon • Building for the World 🌍</p>
+<p class="subtitle"><span id="typing"></span> • Building for the World 🌍</span></p>
 <p>I build clean, fast websites. Learning daily, shipping daily.</p>
 <a class="btn" href="https://wa.me/237651336468" target="_blank">WhatsApp Me</a>
 <a class="btn" href="https://github.com/bangraphael" target="_blank" style="background:white;">GitHub</a>
@@ -69,6 +69,35 @@ a { color:#00ff88; }
 
 <footer>
 <p>© 2026 BANG Raphael Abodu — Built with ❤️ in Bamenda</p>
-</footer>
+</footer><script>
+const texts = ["Developer from Bamenda, Cameroon", "Building for the World 🌍", "I build clean, fast websites"];
+let count = 0;
+let index = 0;
+let currentText = "";
+let letter = "";
+
+(function type() {
+  if (count === texts.length) count = 0;
+  currentText = texts[count];
+  letter = currentText.slice(0, ++index);
+  document.getElementById("typing").textContent = letter;
+  if (letter.length === currentText.length) {
+    count++;
+    index = 0;
+    setTimeout(type, 1500); // wait 1.5 sec
+  } else {
+    setTimeout(type, 100); // typing speed
+  }
+})();
+</script>
+
+<style>
+#typing {
+  color: #00ff88;
+  border-right: 3px solid #00ff88;
+  padding-right: 5px;
+}
+</style>
+
 </body>
 </html>
