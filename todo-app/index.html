@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Todo - Raphael</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      padding-top: 50px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+    }
+    input { width: 60%; padding: 8px; }
+    button { padding: 8px 12px; background: green; color: white; border: none; cursor: pointer; }
+    li { margin-top: 10px; display: flex; justify-content: space-between; }
+    .delBtn { background: red; margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>My Tasks Today</h2>
+    <input id="myInput" placeholder="Buy bread">
+    <button id="addBtn">Add</button>
+    <ul id="list"></ul>
+  </div>
+
+  <script>
+    let btn = document.getElementById('addBtn');
+    let input = document.getElementById('myInput');
+    let list = document.getElementById('list');
+
+    // NEW PART 1: Load from notebook when page opens
+    let todos = JSON.parse(localStorage.getItem('myTodos')) || [];
+    todos.forEach(task => addTaskToScreen(task));
+
+    btn.addEventListener('click', function(){
+      let task = input.value;
+      if(task === "") return;
+      
+      todos.push(task); // NEW PART 2: Put in basket
+      localStorage.setItem('myTodos', JSON.stringify(todos)); // NEW PART 3: Write in notebook
+      
+      addTaskToScreen(task);
+      input.value = "";
+    });
+
+    function addTaskToScreen(task){
+      let li = document.createElement('li');
+      li.textContent = task;
+      
+      let del = document.createElement('button');
+      del.textContent = "X";
+      del.className = "delBtn";
+      
+      // NEW PART 4: Delete logic
+      del.addEventListener('click', function(){
+        li.remove();
+        todos = todos.filter(t => t !== task);
+        localStorage.setItem('myTodos', JSON.stringify(todos)); // Update notebook
+      });
+
+      li.appendChild(del);
+      list.appendChild(li);
+    }
+  </script>
+</body>
+</html>
