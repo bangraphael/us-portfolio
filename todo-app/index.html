@@ -1,73 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Todo - Raphael</title>
-  <style>
-    body {
-      font-family: Arial;
-      background: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      padding-top: 50px;
-    }
-    .box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-    }
-    input { width: 60%; padding: 8px; }
-    button { padding: 8px 12px; background: green; color: white; border: none; cursor: pointer; }
-    li { margin-top: 10px; display: flex; justify-content: space-between; }
-    .delBtn { background: red; margin-left: 10px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasks - Raphael Banga</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; }
+body { background:#0f172a; min-height:100vh; display:flex; justify-content:center; padding:40px 16px; color:#e2e8f0; }
+.container { width:100%; max-width:480px; }
+.header { text-align:center; margin-bottom:32px; }
+.header h1 { font-size:32px; font-weight:700; color:#f8fafc; margin-bottom:8px; }
+.header p { color:#94a3b8; font-size:15px; }
+.card { background:#1e293b; border-radius:16px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,0.3); border:1px solid #334155; }
+.input-row { display:flex; gap:10px; margin-bottom:20px; }
+.input-row input { flex:1; background:#0f172a; border:1px solid #334155; border-radius:10px; padding:14px 16px; color:white; font-size:15px; outline:none; }
+.input-row input:focus { border-color:#22c55e; }
+.btn-add { background:#22c55e; color:#000; border:none; border-radius:10px; padding:0 22px; font-weight:700; cursor:pointer; font-size:15px; }
+.btn-add:hover { background:#16a34a; }
+.filters { display:flex; gap:8px; margin-bottom:18px; }
+.filters button { background:#0f172a; border:1px solid #334155; color:#94a3b8; padding:6px 14px; border-radius:20px; font-size:13px; cursor:pointer; }
+.filters button.active { background:#e2e8f0; color:#0f172a; border-color:#e2e8f0; font-weight:600; }
+ul { list-style:none; }
+li { background:#0f172a; border:1px solid #334155; border-radius:12px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; animation:slideIn 0.2s; }
+li.completed { opacity:0.5; }
+li.completed span.task-text { text-decoration:line-through; }
+.task-left { display:flex; align-items:center; gap:12px; flex:1; }
+.task-left input[type=checkbox] { width:20px; height:20px; accent-color:#22c55e; }
+.task-text { flex:1; font-size:15px; }
+.actions { display:flex; gap:6px; }
+.actions button { background:transparent; border:1px solid #334155; color:#94a3b8; width:32px; height:32px; border-radius:8px; cursor:pointer; }
+.actions button:hover { color:white; border-color:white; }
+.empty { text-align:center; padding:40px 0; color:#64748b; font-size:14px; }
+.count { margin-top:16px; text-align:center; color:#64748b; font-size:13px; }
+@keyframes slideIn { from { opacity:0; transform:translateY(6px);} to {opacity:1; transform:translateY(0);} }
+</style>
 </head>
 <body>
-  <div class="box">
-    <h2>My Tasks Today</h2>
-    <input id="myInput" placeholder="Buy bread">
-    <button id="addBtn">Add</button>
-    <ul id="list"></ul>
+<div class="container">
+  <div class="header">
+    <h1>My Tasks Today</h1>
+    <p>Clean todo with localStorage — by Raphael Banga</p>
   </div>
+  <div class="card">
+    <div class="input-row">
+      <input id="taskInput" placeholder="What needs to be done? e.g. Buy bread" />
+      <button class="btn-add" onclick="addTask()">Add</button>
+    </div>
+    <div class="filters">
+      <button class="active" onclick="setFilter('all', this)">All</button>
+      <button onclick="setFilter('active', this)">Active</button>
+      <button onclick="setFilter('completed', this)">Completed</button>
+    </div>
+    <ul id="list"></ul>
+    <div class="count" id="count"></div>
+  </div>
+</div>
+<script>
+let tasks = JSON.parse(localStorage.getItem('raphael_tasks') || '[]');
+let filter = 'all';
+const input = document.getElementById('taskInput');
+const list = document.getElementById('list');
+const countEl = document.getElementById('count');
 
-  <script>
-    let btn = document.getElementById('addBtn');
-    let input = document.getElementById('myInput');
-    let list = document.getElementById('list');
+input.addEventListener('keypress', e => { if(e.key==='Enter') addTask(); });
 
-    // NEW PART 1: Load from notebook when page opens
-    let todos = JSON.parse(localStorage.getItem('myTodos')) || [];
-    todos.forEach(task => addTaskToScreen(task));
-
-    btn.addEventListener('click', function(){
-      let task = input.value;
-      if(task === "") return;
-      
-      todos.push(task); // NEW PART 2: Put in basket
-      localStorage.setItem('myTodos', JSON.stringify(todos)); // NEW PART 3: Write in notebook
-      
-      addTaskToScreen(task);
-      input.value = "";
-    });
-
-    function addTaskToScreen(task){
-      let li = document.createElement('li');
-      li.textContent = task;
-      
-      let del = document.createElement('button');
-      del.textContent = "X";
-      del.className = "delBtn";
-      
-      // NEW PART 4: Delete logic
-      del.addEventListener('click', function(){
-        li.remove();
-        todos = todos.filter(t => t !== task);
-        localStorage.setItem('myTodos', JSON.stringify(todos)); // Update notebook
-      });
-
-      li.appendChild(del);
-      list.appendChild(li);
-    }
-  </script>
+function save() { localStorage.setItem('raphael_tasks', JSON.stringify(tasks)); }
+function addTask() {
+  const text = input.value.trim(); if(!text) return;
+  tasks.unshift({ id:Date.now(), text, completed:false });
+  input.value=''; save(); render();
+}
+function toggle(id) { const t=tasks.find(x=>x.id===id); t.completed=!t.completed; save(); render(); }
+function removeTask(id) { tasks=tasks.filter(x=>x.id!==id); save(); render(); }
+function editTask(id) {
+  const t=tasks.find(x=>x.id===id);
+  const newText = prompt('Edit task:', t.text);
+  if(newText!==null && newText.trim()){ t.text=newText.trim(); save(); render(); }
+}
+function setFilter(f, btn){ filter=f; document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); render(); }
+function render() {
+  let filtered = tasks;
+  if(filter==='active') filtered = tasks.filter(t=>!t.completed);
+  if(filter==='completed') filtered = tasks.filter(t=>t.completed);
+  list.innerHTML = filtered.length ? filtered.map(t=>`
+    <li class="${t.completed?'completed':''}">
+      <div class="task-left">
+        <input type="checkbox" ${t.completed?'checked':''} onchange="toggle(${t.id})">
+        <span class="task-text">${t.text}</span>
+      </div>
+      <div class="actions">
+        <button onclick="editTask(${t.id})">✎</button>
+        <button onclick="removeTask(${t.id})">✕</button>
+      </div>
+    </li>`).join('') : `<div class="empty">No tasks — add "Buy bread" to start ✨</div>`;
+  countEl.textContent = `${tasks.filter(t=>!t.completed).length} tasks left • ${tasks.length} total`;
+}
+render();
+</script>
 </body>
 </html>
