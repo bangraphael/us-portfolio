@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather - Raphael Banga</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f172a;color:white;font-family:Inter,system-ui,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.card{background:#1e293b;padding:28px;border-radius:24px;width:100%;max-width:380px;box-shadow:0 20px 40px rgba(0,0,0,.3)}
+h1{font-size:22px;margin-bottom:16px;text-align:center}
+.search{display:flex;gap:8px;margin-bottom:20px}
+.search input{flex:1;padding:12px 14px;border-radius:12px;border:none;background:#0f172a;color:white;outline:none;font-size:15px}
+.search button{padding:12px 16px;border-radius:12px;border:none;background:#22c55e;color:#000;font-weight:bold;cursor:pointer}
+.weather{text-align:center}
+.temp{font-size:56px;font-weight:800;margin:10px 0}
+.desc{color:#94a3b8;margin-bottom:8px;text-transform:capitalize}
+.details{display:flex;justify-content:space-around;margin-top:20px;background:#0f172a;padding:14px;border-radius:12px;font-size:14px;color:#cbd5e1}
+.loading{color:#94a3b8;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>Weather - Raphael Banga</h1>
+<div class="search">
+<input id="cityInput" placeholder="Search city e.g. Bamenda, Douala, New York" />
+<button onclick="searchCity()">Search</button>
+</div>
+<div id="result" class="loading">Loading Bamenda weather...</div>
+</div>
+<script>
+const resultDiv = document.getElementById('result');
+
+async function getWeather(lat, lon, cityName){
+ resultDiv.innerHTML = '<div class="loading">Loading...</div>';
+ try{
+  const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&timezone=auto`);
+  const data = await res.json();
+  const t = data.current.temperature_2m;
+  const wind = data.current.wind_speed_10m;
+  const hum = data.current.relative_humidity_2m;
+  const code = data.current.weather_code;
+  const icon = code <=1 ? '☀️' : code <=3 ? '⛅' : code <=48 ? '🌫️' : code <=67 ? '🌧️' : code <=77 ? '❄️' : '⛈️';
+  const desc = code <=1 ? 'Clear sky' : code <=3 ? 'Partly cloudy' : code <=48 ? 'Foggy' : code <=67 ? 'Rainy' : code <=77 ? 'Snowy' : 'Storm';
+  resultDiv.innerHTML = `
+    <div class="weather">
+      <div style="font-size:18px">${icon} ${cityName}</div>
+      <div class="temp">${Math.round(t)}°C</div>
+      <div class="desc">${desc}</div>
+      <div class="details">
+        <div>💨 ${wind} km/h<br><small>Wind</small></div>
+        <div>💧 ${hum}%<br><small>Humidity</small></div>
+      </div>
+    </div>`;
+ } catch(e){ resultDiv.innerHTML = 'Error loading weather'; }
+}
+
+async function searchCity(){
+ const city = document.getElementById('cityInput').value || 'Bamenda';
+ try{
+  const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`);
+  const gdata = await geo.json();
+  if(!gdata.results) { resultDiv.innerHTML='City not found'; return; }
+  const {latitude, longitude, name, country} = gdata.results[0];
+  getWeather(latitude, longitude, `${name}, ${country}`);
+ } catch{ resultDiv.innerHTML='City not found'; }
+}
+
+// Load Bamenda by default
+getWeather(5.96, 10.15, 'Bamenda, Cameroon');
+</script>
+</body>
+</html>
