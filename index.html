@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bang Raphael Abodu</title>
-<!-- Facebook Link Preview -->
 <meta property="og:title" content="Bang Raphael Abodu — Developer from Bamenda">
 <meta property="og:description" content="I build clean, fast websites. Built from scratch in Bamenda, Cameroon. Available for freelance & junior dev roles.">
 <meta property="og:url" content="https://bangraphael.github.io/us-portfolio/">
@@ -20,16 +19,19 @@ section { padding:50px 20px; max-width:900px; margin:auto; }
 h2 { font-size:32px; margin-bottom:20px; border-left:4px solid #00ff88; padding-left:15px; }
 .skills { display:flex; flex-wrap:wrap; gap:10px; }
 .skill { background:#1a1a1a; padding:10px 20px; border-radius:20px; border:1px solid #333; }
-.project { background:#1a1a1a; padding:20px; border-radius:15px; margin:15px 0; border:1px solid #333; }
 footer { text-align:center; padding:30px; background:#111; color:#888; }
 a { color:#00ff88; }
+#typing { color: #00ff88; border-right: 3px solid #00ff88; padding-right: 5px; }
+body.light { background: #ffffff!important; color: #000000!important; }
+body.light header { background: #f0f0f0!important; }
+body.light.skill { background: #e0e0e0!important; color: #000!important; border-color:#ccc!important; }
 </style>
 </head>
 <body>
 <header>
 <h1>Bang Raphael Abodu</h1>
 <button id="themeBtn" style="position:fixed; top:20px; right:20px; background:#00ff88; border:none; padding:10px 15px; border-radius:20px; cursor:pointer; font-weight:bold; z-index:999;">🌙</button>
-<p class="subtitle"><span id="typing"></span></p> 
+<p class="subtitle"><span id="typing"></span></p>
 <p>I build clean, fast websites. Learning daily, shipping daily.</p>
 <a class="btn" href="https://wa.me/237651336468" target="_blank">WhatsApp Me</a>
 <a class="btn" href="https://github.com/bangraphael" target="_blank" style="background:white;">GitHub</a>
@@ -44,111 +46,82 @@ a { color:#00ff88; }
 <div class="skill">Git & GitHub</div>
 <div class="skill">GitHub Pages</div>
 <div class="skill">Responsive Design</div>
+<div class="skill">API Integration</div>
 </div>
 </section>
+
 <section id="projects" style="padding:40px 20px; max-width:900px; margin:auto;">
   <h2 style="font-size:32px; border-left:5px solid #00ff88; padding-left:15px; margin-bottom:25px;">Projects</h2>
-  
   <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
-    
-    <!-- Project 1 -->
-    <div style="background:#050505; border:1px solid #333; border-radius:12px; padding:20px;">
+
+    <div style="background:#111; border:1px solid #333; border-radius:12px; padding:20px;">
       <h3 style="color:#00ff88;">Todo App</h3>
       <p style="color:#aaa; font-size:14px;">Clean todo with JavaScript localStorage. Add, delete, complete tasks.</p>
       <p style="margin-top:15px;">
-        <a href="#" style="color:#00ff88; text-decoration:none; margin-right:15px;"><a href="./todo-app/" target="_blank">Live Demo →</a>
-        <a href="#" style="color:white; text-decoration:none;">GitHub →</a>
+        <a href="./todo-app/" style="color:#00ff88; text-decoration:none; margin-right:15px;" target="_blank">Live Demo →</a>
+        <a href="https://github.com/bangraphael/us-portfolio/tree/main/todo-app" style="color:white; text-decoration:none;" target="_blank">GitHub →</a>
       </p>
     </div>
-S
-    <!-- Project 2 -->
+
     <div style="background:#111; border:1px solid #333; border-radius:12px; padding:20px;">
       <h3 style="color:#00ff88;">Calculator</h3>
       <p style="color:#aaa; font-size:14px;">Modern calculator with keyboard support and dark/light mode.</p>
       <p style="margin-top:15px;">
-        <a href="#" style="color:#00ff88; text-decoration:none; margin-right:15px;"><a href="./calculator-app/" target="_blank">Live Demo →</a>
-        <a href="#" style="color:white; text-decoration:none;">GitHub →</a>
+        <a href="./calculator-app/" style="color:#00ff88; text-decoration:none; margin-right:15px;" target="_blank">Live Demo →</a>
+        <a href="https://github.com/bangraphael/us-portfolio/tree/main/calculator-app" style="color:white; text-decoration:none;" target="_blank">GitHub →</a>
       </p>
     </div>
 
-    <!-- Project 3 -->
     <div style="background:#111; border:1px solid #333; border-radius:12px; padding:20px;">
       <h3 style="color:#00ff88;">Weather App</h3>
       <p style="color:#aaa; font-size:14px;">Weather app using API. Shows Bamenda, Yaounde, and any city.</p>
       <p style="margin-top:15px;">
-        <a href="#" style="color:#00ff88; text-decoration:none; margin-right:15px;">Live Demo →</a>
-        <a href="#" style="color:white; text-decoration:none;">GitHub →</a>
+        <a href="./weather-app/" style="color:#00ff88; text-decoration:none; margin-right:15px;" target="_blank">Live Demo →</a>
+        <a href="https://github.com/bangraphael/us-portfolio/tree/main/weather-app" style="color:white; text-decoration:none;" target="_blank">GitHub →</a>
       </p>
     </div>
 
   </div>
 </section>
-<!-- ABOUT -->
+
 <section style="padding:40px 20px; max-width:900px; margin:auto; text-align:center;">
   <h2 style="font-size:32px; border-left:5px solid #00ff88; padding-left:15px; text-align:left; margin-bottom:15px;">About Me</h2>
   <p style="color:#ccc; line-height:1.7;">
-    I'm BANG Raphael Abodu, a frontend developer from Bamenda, Cameroon. 
-    Son of a praying mother. I build clean, fast websites. 
+    I'm BANG Raphael Abodu, a frontend developer from Bamenda, Cameroon.
+    Son of a praying mother. I build clean, fast websites.
     Learning daily, shipping daily. Building for the World 🌍
   </p>
 </section>
 
-<!-- CONTACT -->
 <section style="padding:40px 20px; max-width:900px; margin:auto;">
   <h2 style="font-size:32px; border-left:5px solid #00ff88; padding-left:15px; margin-bottom:25px;">Contact</h2>
   <div style="background:#111; border-radius:12px; padding:25px; text-align:center;">
     <p style="color:#aaa; margin-bottom:20px;">Have a project? Let's build it!</p>
     <a href="https://wa.me/237651336468" style="background:#00ff88; color:#000; padding:12px 25px; border-radius:25px; text-decoration:none; font-weight:bold; margin-right:10px;">WhatsApp</a>
-    <a href="mailto:bangraphael@example.com" style="background:white; color:#000; padding:12px 25px; border-radius:25px; text-decoration:none; font-weight:bold;">Email Me</a>
+    <a href="mailto:bangraphael58@gmail.com" style="background:white; color:#000; padding:12px 25px; border-radius:25px; text-decoration:none; font-weight:bold;">Email Me</a>
     <p style="color:#666; margin-top:20px; font-size:13px;">📍 Bamenda, Cameroon • Available for remote work worldwide</p>
+    <p style="color:#666; margin-top:10px; font-size:13px;">GitHub: github.com/bangraphael</p>
   </div>
 </section>
 
 <footer style="text-align:center; padding:30px; color:#666; border-top:1px solid #222; margin-top:40px;">
-  © 2025 BANG Raphael Abodu — Built with code from Bamenda to the World
+  © 2026 BANG Raphael Abodu — Built with ❤️ in Bamenda • <a href="https://bangraphael.github.io/us-portfolio/">Live Portfolio</a> • <a href="https://bangraphael.github.io/my-first-website/">First Website</a>
 </footer>
 
-<section>
-<h2>Projects</h2>
-<div class="project">
-<h3>🚀 US-Portfolio - Live Portfolio Website</h3>
-<p>Personal portfolio hosted on GitHub Pages. Built from scratch in Bamenda.</p>
-<p><a href="https://bangraphael.github.io/us-portfolio/" target="_blank">View Live →</a></p>
-</div>
-<div class="project">
-<h3>📁 My First Website</h3>
-<p>My first coding project — where the journey started.</p>
-<p><a href="https://bangraphael.github.io/my-first-website/" target="_blank">View Live →</a></p>
-</div>
-</section>
-
-<section>
-<h2>Contact</h2>
-<p>📍 Bamenda, Northwest Region, Cameroon</p>
-<p>📧 GitHub: <a href="https://github.com/bangraphael">github.com/bangraphael</a></p>
-<p>💼 Available for freelance & junior dev roles</p>
-</section>
-
-<footer>
-<p>© 2026 BANG Raphael Abodu — Built with ❤️ in Bamenda</p>
-</footer><script>
+<script>
 const texts = ["Developer from Bamenda, Cameroon", "Building for the World 🌍", "I build clean, fast websites"];
 let count = 0;
 let index = 0;
-let currentText = "";
-let letter = "";
-
 (function type() {
   if (count === texts.length) count = 0;
-  currentText = texts[count];
-  letter = currentText.slice(0, ++index);
+  let currentText = texts[count];
+  let letter = currentText.slice(0, ++index);
   document.getElementById("typing").textContent = letter;
   if (letter.length === currentText.length) {
-    count++;
-    index = 0;
-    setTimeout(type, 1500); // wait 1.5 sec
+    count++; index = 0;
+    setTimeout(type, 1500);
   } else {
-    setTimeout(type, 100); // typing speed
+    setTimeout(type, 100);
   }
 })();
 </script>
@@ -156,31 +129,8 @@ let letter = "";
   const btn = document.getElementById("themeBtn");
   btn.onclick = () => {
     document.body.classList.toggle("light");
-    btn.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
+    btn.textContent = document.body.classList.contains("light")? "☀️" : "🌙";
   }
 </script>
-
-<style>
-  body.light {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-  body.light header {
-    background: #f0f0f0 !important;
-  }
-  body.light .skills span {
-    background: #e0e0e0 !important;
-    color: #000 !important;
-  }
-</style>
-
-<style>
-#typing {
-  color: #00ff88;
-  border-right: 3px solid #00ff88;
-  padding-right: 5px;
-}
-</style>
-
 </body>
 </html>
