@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator - Raphael Banga</title>
+<style>
+body{ background:#0f172a; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0; font-family:sans-serif; }
+.calculator{ background:#1e293b; padding:20px; border-radius:20px; width:300px; }
+.display{ background:#0f172a; color:white; font-size:36px; text-align:right; padding:20px; border-radius:12px; margin-bottom:16px; min-height:50px; }
+.buttons{ display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; }
+button{ height:60px; border:none; border-radius:12px; font-size:20px; cursor:pointer; background:#334155; color:white; }
+button:hover{ background:#475569; }
+</style>
+</head>
+<body>
+<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button onclick="clearAll()">C</button><button onclick="del()">⌫</button><button onclick="append('%')">%</button><button onclick="append('/')">/</button>
+    <button onclick="append('7')">7</button><button onclick="append('8')">8</button><button onclick="append('9')">9</button><button onclick="append('*')">*</button>
+    <button onclick="append('4')">4</button><button onclick="append('5')">5</button><button onclick="append('6')">6</button><button onclick="append('-')">-</button>
+    <button onclick="append('1')">1</button><button onclick="append('2')">2</button><button onclick="append('3')">3</button><button onclick="append('+')">+</button>
+    <button onclick="append('0')" style="grid-column: span 1;">0</button><button onclick="append('.')">.</button><button onclick="calculate()" style="background:#22c55e; color:black; grid-column: span 2; font-weight:bold;">=</button>
+  </div>
+</div>
+<script>
+let disp = document.getElementById('display');
+let current = '0';
+function render(){ disp.textContent = current; }
+function append(v){
+  if(current==='0' && v!=='.') current=v;
+  else current+=v;
+  render();
+}
+function clearAll(){ current='0'; render(); }
+function del(){ current=current.length>1?current.slice(0,-1):'0'; render(); }
+function calculate(){
+  try{ current = String(eval(current.replace('%','/100'))); }
+  catch{ current='Error'; }
+  render();
+}
+</script>
+</body>
+</html>
